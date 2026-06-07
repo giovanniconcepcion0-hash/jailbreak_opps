@@ -1,0 +1,975 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JailbreakHub</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+
+:root {
+  --bg: #000;
+  --surface: rgba(255,255,255,0.05);
+  --surface2: rgba(255,255,255,0.08);
+  --border: rgba(255,255,255,0.1);
+  --border2: rgba(255,255,255,0.15);
+  --text: #f5f5f7;
+  --text2: #a1a1a6;
+  --text3: #6e6e73;
+  --blue: #0a84ff;
+  --blue-dim: rgba(10,132,255,0.15);
+  --green: #30d158;
+  --green-dim: rgba(48,209,88,0.15);
+  --teal: #05AA87;
+  --teal-dim: rgba(5,170,135,0.15);
+  --orange: #ff9f0a;
+  --red: #ff453a;
+  --purple: #bf5af2;
+  --radius: 18px;
+  --radius-sm: 12px;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  line-height: 1.5;
+  min-height: 100vh;
+}
+
+/* NAV */
+nav {
+  position: sticky;
+  top: 0;
+  z-index: 999;
+  background: rgba(0,0,0,0.72);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 28px;
+  height: 52px;
+}
+
+.nav-brand {
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--text);
+  letter-spacing: -0.4px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.nav-brand .icon { font-size: 20px; }
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  list-style: none;
+}
+
+.nav-links a {
+  color: var(--text2);
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 400;
+  padding: 6px 12px;
+  border-radius: 8px;
+  transition: color 0.2s, background 0.2s;
+}
+
+.nav-links a:hover {
+  color: var(--text);
+  background: var(--surface2);
+}
+
+/* HERO */
+.hero {
+  text-align: center;
+  padding: 90px 24px 70px;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  top: -60px; left: 50%;
+  transform: translateX(-50%);
+  width: 600px; height: 400px;
+  background: radial-gradient(ellipse, rgba(10,132,255,0.18) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.hero-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--blue-dim);
+  border: 1px solid rgba(10,132,255,0.3);
+  color: var(--blue);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.4px;
+  padding: 5px 14px;
+  border-radius: 100px;
+  margin-bottom: 22px;
+}
+
+.hero h1 {
+  font-size: clamp(42px, 8vw, 80px);
+  font-weight: 700;
+  letter-spacing: -2.5px;
+  line-height: 1.02;
+  margin-bottom: 20px;
+  background: linear-gradient(180deg, #ffffff 0%, #a0a0a8 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.hero-sub {
+  font-size: 19px;
+  font-weight: 300;
+  color: var(--text2);
+  max-width: 540px;
+  margin: 0 auto 36px;
+  line-height: 1.55;
+  letter-spacing: -0.2px;
+}
+
+.hero-ctas {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 12px 22px;
+  border-radius: 980px;
+  font-size: 15px;
+  font-weight: 500;
+  text-decoration: none;
+  cursor: pointer;
+  border: none;
+  transition: transform 0.15s, opacity 0.15s;
+  letter-spacing: -0.2px;
+}
+
+.btn:hover { transform: scale(1.02); opacity: 0.9; }
+.btn:active { transform: scale(0.98); }
+
+.btn-primary { background: var(--blue); color: #fff; }
+.btn-secondary {
+  background: var(--surface2);
+  color: var(--text);
+  border: 1px solid var(--border2);
+  backdrop-filter: blur(10px);
+}
+
+/* SECTION */
+section {
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 0 24px 80px;
+}
+
+.section-label {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  color: var(--blue);
+  margin-bottom: 10px;
+}
+
+.section-title {
+  font-size: clamp(28px, 4vw, 42px);
+  font-weight: 700;
+  letter-spacing: -1.2px;
+  line-height: 1.1;
+  color: var(--text);
+  margin-bottom: 10px;
+}
+
+.section-desc {
+  font-size: 17px;
+  color: var(--text2);
+  font-weight: 300;
+  max-width: 520px;
+  line-height: 1.55;
+  margin-bottom: 40px;
+}
+
+/* CARDS */
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 16px;
+}
+
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 28px 24px;
+  position: relative;
+  overflow: hidden;
+  transition: border-color 0.25s, transform 0.2s, background 0.2s;
+  cursor: default;
+}
+
+.card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: var(--radius);
+  background: linear-gradient(135deg, rgba(255,255,255,0.04) 0%, transparent 60%);
+  pointer-events: none;
+}
+
+.card:hover {
+  border-color: var(--border2);
+  background: var(--surface2);
+  transform: translateY(-3px);
+}
+
+.card-emoji { font-size: 32px; margin-bottom: 16px; display: block; }
+
+.card-title {
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 7px;
+  letter-spacing: -0.3px;
+}
+
+.card-desc {
+  font-size: 14px;
+  color: var(--text2);
+  line-height: 1.6;
+  margin-bottom: 16px;
+}
+
+.chip {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 500;
+  padding: 3px 10px;
+  border-radius: 100px;
+  letter-spacing: 0.2px;
+}
+
+.chip-blue { background: var(--blue-dim); color: var(--blue); }
+.chip-green { background: var(--green-dim); color: var(--green); }
+.chip-teal { background: var(--teal-dim); color: var(--teal); }
+.chip-orange { background: rgba(255,159,10,0.15); color: var(--orange); }
+.chip-purple { background: rgba(191,90,242,0.15); color: var(--purple); }
+
+/* DIVIDER */
+.divider {
+  border: none;
+  border-top: 1px solid var(--border);
+  margin: 0 24px 80px;
+  max-width: 980px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* FEATURE SECTION - Dopamine */
+.feature-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  align-items: center;
+  margin-bottom: 80px;
+}
+
+@media (max-width: 700px) {
+  .feature-row { grid-template-columns: 1fr; }
+  nav .nav-links { display: none; }
+}
+
+.feature-visual {
+  background: linear-gradient(145deg, rgba(5,170,135,0.12) 0%, rgba(5,170,135,0.03) 100%);
+  border: 1px solid rgba(5,170,135,0.2);
+  border-radius: var(--radius);
+  padding: 40px 30px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.feature-visual::before {
+  content: '';
+  position: absolute;
+  top: -40px; left: 50%;
+  transform: translateX(-50%);
+  width: 200px; height: 200px;
+  background: radial-gradient(circle, rgba(5,170,135,0.25), transparent 70%);
+}
+
+.dop-icon {
+  font-size: 80px;
+  display: block;
+  margin-bottom: 16px;
+  position: relative;
+  z-index: 1;
+  filter: drop-shadow(0 0 30px rgba(5,170,135,0.6));
+  animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+.dop-name {
+  font-size: 28px;
+  font-weight: 700;
+  letter-spacing: -0.8px;
+  color: var(--teal);
+  margin-bottom: 6px;
+  position: relative;
+  z-index: 1;
+}
+
+.dop-version {
+  font-size: 13px;
+  color: var(--text3);
+  position: relative;
+  z-index: 1;
+}
+
+.feature-info .section-label { margin-bottom: 8px; }
+.feature-info .section-title { margin-bottom: 12px; }
+
+.feature-list {
+  list-style: none;
+  margin: 20px 0 28px;
+}
+
+.feature-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 15px;
+  color: var(--text2);
+  padding: 8px 0;
+  border-bottom: 1px solid var(--border);
+  line-height: 1.5;
+}
+
+.feature-list li:last-child { border-bottom: none; }
+
+.feature-list .check {
+  color: var(--teal);
+  font-size: 16px;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+.btn-teal { background: var(--teal); color: #fff; }
+.btn-teal:hover { background: #07c49b; }
+
+/* TROLLSTORE SECTION */
+.trollstore-box {
+  background: linear-gradient(145deg, rgba(255,159,10,0.08) 0%, rgba(255,69,58,0.05) 100%);
+  border: 1px solid rgba(255,159,10,0.2);
+  border-radius: var(--radius);
+  padding: 40px;
+  margin-bottom: 80px;
+}
+
+.trollstore-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 28px;
+}
+
+.troll-icon {
+  font-size: 52px;
+  filter: drop-shadow(0 0 20px rgba(255,159,10,0.5));
+}
+
+.troll-meta { flex: 1; }
+.troll-meta h3 {
+  font-size: 26px;
+  font-weight: 700;
+  letter-spacing: -0.6px;
+  color: var(--text);
+  margin-bottom: 4px;
+}
+
+.troll-meta p { font-size: 14px; color: var(--text2); }
+
+.compat-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 10px;
+  margin: 20px 0 28px;
+}
+
+.compat-chip {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 12px 16px;
+  font-size: 13px;
+}
+
+.compat-chip .cv { font-weight: 600; color: var(--text); display: block; margin-bottom: 2px; }
+.compat-chip .cm { color: var(--text3); font-size: 12px; }
+.compat-chip.supported { border-color: rgba(48,209,88,0.25); }
+.compat-chip.unsupported { border-color: rgba(255,69,58,0.2); opacity: 0.6; }
+.compat-chip .dot-s { display:inline-block;width:6px;height:6px;border-radius:50%;margin-right:5px;vertical-align:middle; }
+.compat-chip.supported .dot-s { background: var(--green); }
+.compat-chip.unsupported .dot-s { background: var(--red); }
+.btn-orange { background: var(--orange); color: #000; font-weight: 600; }
+
+/* GUIDE SECTION */
+.guide-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 12px;
+  margin-bottom: 28px;
+}
+
+.guide-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 20px;
+  text-decoration: none;
+  color: var(--text);
+  transition: border-color 0.2s, background 0.2s, transform 0.15s;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.guide-card:hover {
+  border-color: var(--border2);
+  background: var(--surface2);
+  transform: translateX(4px);
+}
+
+.guide-card .gi { font-size: 26px; }
+
+.guide-card .gt {
+  font-size: 15px;
+  font-weight: 500;
+  margin-bottom: 2px;
+  letter-spacing: -0.2px;
+}
+
+.guide-card .gd { font-size: 12px; color: var(--text3); }
+
+.guide-card .arrow {
+  margin-left: auto;
+  color: var(--text3);
+  font-size: 18px;
+  flex-shrink: 0;
+}
+
+/* COMPAT TABLE */
+.table-wrap {
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  margin-bottom: 80px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+thead tr {
+  background: rgba(255,255,255,0.04);
+}
+
+th {
+  padding: 14px 20px;
+  text-align: left;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text3);
+  letter-spacing: 0.4px;
+  text-transform: uppercase;
+  border-bottom: 1px solid var(--border);
+}
+
+td {
+  padding: 13px 20px;
+  color: var(--text2);
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+
+tr:last-child td { border-bottom: none; }
+tr:hover td { background: rgba(255,255,255,0.025); color: var(--text); }
+
+.badge {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 500;
+  padding: 3px 9px;
+  border-radius: 100px;
+}
+
+.badge-green { background: var(--green-dim); color: var(--green); }
+.badge-orange { background: rgba(255,159,10,0.15); color: var(--orange); }
+.badge-red { background: rgba(255,69,58,0.15); color: var(--red); }
+
+/* INFO CARDS */
+.info-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+  margin-bottom: 80px;
+}
+
+@media (max-width: 600px) { .info-grid { grid-template-columns: 1fr; } }
+
+.info-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 28px 24px;
+}
+
+.info-card h4 {
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 10px;
+  letter-spacing: -0.3px;
+}
+
+.info-card p {
+  font-size: 14px;
+  color: var(--text2);
+  line-height: 1.65;
+}
+
+/* FOOTER */
+footer {
+  border-top: 1px solid var(--border);
+  padding: 40px 24px;
+  text-align: center;
+}
+
+.footer-links {
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+
+.footer-links a {
+  color: var(--text3);
+  text-decoration: none;
+  font-size: 13px;
+  transition: color 0.2s;
+}
+
+.footer-links a:hover { color: var(--text2); }
+
+.footer-copy {
+  font-size: 12px;
+  color: var(--text3);
+  line-height: 1.8;
+}
+
+/* TABS */
+.tabs {
+  display: flex;
+  gap: 4px;
+  background: rgba(255,255,255,0.06);
+  border-radius: 12px;
+  padding: 4px;
+  margin-bottom: 28px;
+  width: fit-content;
+}
+
+.tab {
+  padding: 7px 18px;
+  border-radius: 9px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  color: var(--text2);
+  border: none;
+  background: transparent;
+  transition: background 0.2s, color 0.2s;
+}
+
+.tab.active {
+  background: rgba(255,255,255,0.12);
+  color: var(--text);
+}
+
+.tab-content { display: none; }
+.tab-content.active { display: block; }
+
+/* NOTICE */
+.notice {
+  border-radius: var(--radius-sm);
+  padding: 14px 18px;
+  font-size: 14px;
+  line-height: 1.6;
+  margin-bottom: 20px;
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+}
+
+.notice.warn { background: rgba(255,159,10,0.1); border: 1px solid rgba(255,159,10,0.25); color: #e8a500; }
+.notice.danger { background: rgba(255,69,58,0.1); border: 1px solid rgba(255,69,58,0.25); color: #ff6b63; }
+.notice.info { background: var(--blue-dim); border: 1px solid rgba(10,132,255,0.25); color: #5aacff; }
+.notice .ni { font-size: 17px; flex-shrink: 0; margin-top: 1px; }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-brand">
+    <span class="icon">📱</span>
+    JailbreakHub
+  </div>
+  <ul class="nav-links">
+    <li><a href="#tools">Tools</a></li>
+    <li><a href="#dopamine">Dopamine</a></li>
+    <li><a href="#trollstore">TrollStore</a></li>
+    <li><a href="#guide">Guide</a></li>
+    <li><a href="#compat">Compatibility</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-eyebrow">✦ Educational Reference Hub</div>
+  <h1>Unlock Your iPhone.</h1>
+  <p class="hero-sub">Everything you need to know about iOS jailbreaking — tools, guides, and compatibility — in one place.</p>
+  <div class="hero-ctas">
+    <a href="https://ios.cfw.guide/get-started" target="_blank" class="btn btn-primary">Get Started ↗</a>
+    <a href="#compat" class="btn btn-secondary">Check Compatibility</a>
+  </div>
+</div>
+
+<!-- TOOLS -->
+<section id="tools">
+  <div class="section-label">Tools</div>
+  <div class="section-title">Choose your jailbreak.</div>
+  <p class="section-desc">Different tools for different devices and iOS versions. Find the one that fits your setup.</p>
+
+  <div class="cards-grid">
+    <div class="card">
+      <span class="card-emoji">🌊</span>
+      <div class="card-title">Dopamine</div>
+      <div class="card-desc">Rootless jailbreak for iOS 15–16.6.1. Supports A8–A16 and M1–M2. Ships with Sileo & Zebra.</div>
+      <span class="chip chip-teal">Rootless</span>
+    </div>
+    <div class="card">
+      <span class="card-emoji">🧩</span>
+      <div class="card-title">TrollStore</div>
+      <div class="card-desc">Permanent IPA installer via CoreTrust bug. Not a jailbreak — no kernel exploit. iOS 14–17 partial.</div>
+      <span class="chip chip-orange">CoreTrust</span>
+    </div>
+    <div class="card">
+      <span class="card-emoji">⚡</span>
+      <div class="card-title">Checkra1n</div>
+      <div class="card-desc">Hardware bootrom exploit for A5–A11 chips. Works on iOS 12–14.8.1. Mac/Linux CLI.</div>
+      <span class="chip chip-blue">Bootrom</span>
+    </div>
+    <div class="card">
+      <span class="card-emoji">🔓</span>
+      <div class="card-title">Unc0ver</div>
+      <div class="card-desc">Untethered software jailbreak for iOS 11–14.8 on all 64-bit devices via tfp0 kernel exploit.</div>
+      <span class="chip chip-purple">Untethered</span>
+    </div>
+    <div class="card">
+      <span class="card-emoji">🛠️</span>
+      <div class="card-title">Palera1n</div>
+      <div class="card-desc">Checkm8-based tool for A9–A11 on iOS 15+. Semi-tethered with full rootless Sileo support.</div>
+      <span class="chip chip-green">Semi-tethered</span>
+    </div>
+    <div class="card">
+      <span class="card-emoji">🔮</span>
+      <div class="card-title">Meowbrek2</div>
+      <div class="card-desc">Rootless jailbreak targeting iOS 15.0–16.1.2. Uses ElleKit. Built by itsnebulalol.</div>
+      <span class="chip chip-teal">Rootless</span>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- DOPAMINE -->
+<section id="dopamine" style="padding-bottom:0">
+  <div class="feature-row">
+    <div class="feature-visual">
+      <span class="dop-icon">💊</span>
+      <div class="dop-name">Dopamine</div>
+      <div class="dop-version">iOS 15.0 – 16.6.1 · A8 – A16, M1/M2</div>
+    </div>
+    <div class="feature-info">
+      <div class="section-label">Dopamine</div>
+      <div class="section-title" style="font-size:28px;">Rootless.<br>Open source.</div>
+      <ul class="feature-list">
+        <li><span class="check">✓</span> Supports arm64 (A8–A11) and arm64e (A12–A16, M1–M2)</li>
+        <li><span class="check">✓</span> iOS 15.0–15.8.6 and 16.0–16.6.1*</li>
+        <li><span class="check">✓</span> Rootless — preserves system integrity</li>
+        <li><span class="check">✓</span> Ships with Sileo and Zebra</li>
+        <li><span class="check">✓</span> Fully open source on GitHub (opa334/Dopamine)</li>
+        <li><span class="check">✓</span> Uses ElleKit hooking library</li>
+      </ul>
+      <div style="display:flex;gap:10px;flex-wrap:wrap;">
+        <a href="https://github.com/opa334/Dopamine/releases/latest/download/Dopamine.ipa" target="_blank" class="btn btn-teal">Download .ipa ↗</a>
+        <a href="https://ellekit.space/dopamine/" target="_blank" class="btn btn-secondary">Official Site ↗</a>
+      </div>
+    </div>
+  </div>
+
+  <div style="max-width:980px;margin:0 auto;padding:0 0 80px;">
+    <div class="notice warn"><span class="ni">⚠️</span> A12+ devices are not supported on iOS 16.6–16.6.1. A15/A16/M2 devices are not supported on iOS 16.5.1–16.6.1. No devices are supported on iOS 15.8.7.</div>
+    <div class="notice info"><span class="ni">ℹ️</span> Rootless jailbreaks don't provide full OS filesystem access. Some tweaks may need updates to be compatible. Check tweak compatibility before installing.</div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- TROLLSTORE -->
+<section id="trollstore">
+  <div class="section-label">TrollStore</div>
+  <div class="section-title">Permanent IPA installs. No jailbreak needed.</div>
+  <p class="section-desc">TrollStore uses a CoreTrust bug to permanently sign and install apps with almost any entitlement — no kernel exploit required.</p>
+
+  <div class="trollstore-box">
+    <div class="trollstore-header">
+      <span class="troll-icon">🧌</span>
+      <div class="troll-meta">
+        <h3>TrollStore 2</h3>
+        <p>Permanent IPA installer via CoreTrust · Not a jailbreak</p>
+      </div>
+      <a href="https://ios.cfw.guide/installing-trollstore/" target="_blank" class="btn btn-orange">Install Guide ↗</a>
+    </div>
+
+    <div class="notice danger"><span class="ni">🚫</span> <span>TrollStore is <strong>not</strong> a jailbreak. Devices on iOS 16.7.x (excluding 16.7 RC), iOS 17.0.1+, or iOS 18+ are <strong>not supported</strong>.</span></div>
+
+    <p style="font-size:14px;color:var(--text2);margin-bottom:16px;font-weight:500;">Installation method by iOS version & chip:</p>
+
+    <div class="compat-grid">
+      <div class="compat-chip supported">
+        <span class="cv"><span class="dot-s"></span>14.0b2 – 14.8.1</span>
+        <span class="cm">TrollInstallerX / TrollHelperOTA</span>
+      </div>
+      <div class="compat-chip supported">
+        <span class="cv"><span class="dot-s"></span>15.0 – 15.5</span>
+        <span class="cm">TrollHelperOTA / TrollInstallerMDC</span>
+      </div>
+      <div class="compat-chip supported">
+        <span class="cv"><span class="dot-s"></span>15.6 – 15.8.6</span>
+        <span class="cm">TrollMisaka / TrollInstallerX</span>
+      </div>
+      <div class="compat-chip supported">
+        <span class="cv"><span class="dot-s"></span>16.0 – 16.6.1</span>
+        <span class="cm">TrollInstallerX</span>
+      </div>
+      <div class="compat-chip supported">
+        <span class="cv"><span class="dot-s"></span>16.7 RC only</span>
+        <span class="cm">TrollRestore (A9–A11 only)</span>
+      </div>
+      <div class="compat-chip unsupported">
+        <span class="cv"><span class="dot-s"></span>17.0.1+ / 18+</span>
+        <span class="cm">Not Supported</span>
+      </div>
+    </div>
+
+    <a href="https://ios.cfw.guide/installing-trollstore/" target="_blank" class="btn btn-orange">Full Installation Guide ↗</a>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- GUIDE -->
+<section id="guide">
+  <div class="section-label">iOS CFW Guide</div>
+  <div class="section-title">Everything you need to know.</div>
+  <p class="section-desc">Comprehensive guides from ios.cfw.guide — from stock device to jailbroken, with FAQs and troubleshooting.</p>
+
+  <div class="tabs">
+    <button class="tab active" onclick="switchTab('guides')">Guides</button>
+    <button class="tab" onclick="switchTab('help')">Help</button>
+    <button class="tab" onclick="switchTab('info')">What is Jailbreaking?</button>
+  </div>
+
+  <div class="tab-content active" id="tab-guides">
+    <div class="guide-grid">
+      <a href="https://ios.cfw.guide/get-started" target="_blank" class="guide-card">
+        <span class="gi">🚀</span>
+        <div><div class="gt">Get Started</div><div class="gd">Find the right tool for your device</div></div>
+        <span class="arrow">›</span>
+      </a>
+      <a href="https://ios.cfw.guide/installing-trollstore/" target="_blank" class="guide-card">
+        <span class="gi">🧌</span>
+        <div><div class="gt">Installing TrollStore</div><div class="gd">Step-by-step TrollStore setup</div></div>
+        <span class="arrow">›</span>
+      </a>
+      <a href="https://ios.cfw.guide/saving-blobs/" target="_blank" class="guide-card">
+        <span class="gi">💾</span>
+        <div><div class="gt">Saving Blobs</div><div class="gd">Preserve your iOS version for downgrades</div></div>
+        <span class="arrow">›</span>
+      </a>
+      <a href="https://ios.cfw.guide/sideloading-apps/" target="_blank" class="guide-card">
+        <span class="gi">📦</span>
+        <div><div class="gt">Sideloading Apps</div><div class="gd">Install IPAs outside the App Store</div></div>
+        <span class="arrow">›</span>
+      </a>
+      <a href="https://ios.cfw.guide/updating-blobless/" target="_blank" class="guide-card">
+        <span class="gi">🔄</span>
+        <div><div class="gt">Updating (Blobless)</div><div class="gd">Update without losing jailbreak access</div></div>
+        <span class="arrow">›</span>
+      </a>
+      <a href="https://ios.cfw.guide/blocking-jailbreak-detection/" target="_blank" class="guide-card">
+        <span class="gi">🛡️</span>
+        <div><div class="gt">Bypass JB Detection</div><div class="gd">Use apps that block jailbroken devices</div></div>
+        <span class="arrow">›</span>
+      </a>
+    </div>
+  </div>
+
+  <div class="tab-content" id="tab-help">
+    <div class="guide-grid">
+      <a href="https://ios.cfw.guide/faq/" target="_blank" class="guide-card">
+        <span class="gi">❓</span>
+        <div><div class="gt">FAQ</div><div class="gd">Frequently asked questions answered</div></div>
+        <span class="arrow">›</span>
+      </a>
+      <a href="https://ios.cfw.guide/troubleshooting/" target="_blank" class="guide-card">
+        <span class="gi">🔧</span>
+        <div><div class="gt">Troubleshooting</div><div class="gd">Fix common issues and errors</div></div>
+        <span class="arrow">›</span>
+      </a>
+      <a href="https://ios.cfw.guide/recommended-repos/" target="_blank" class="guide-card">
+        <span class="gi">📋</span>
+        <div><div class="gt">Recommended Repos</div><div class="gd">Trusted tweak repositories</div></div>
+        <span class="arrow">›</span>
+      </a>
+      <a href="https://ios.cfw.guide/types-of-jailbreak/" target="_blank" class="guide-card">
+        <span class="gi">🔬</span>
+        <div><div class="gt">Jailbreak Types</div><div class="gd">Tethered vs untethered vs rootless</div></div>
+        <span class="arrow">›</span>
+      </a>
+      <a href="https://ios.cfw.guide/package-managers/" target="_blank" class="guide-card">
+        <span class="gi">📱</span>
+        <div><div class="gt">Package Managers</div><div class="gd">Sileo, Zebra, Cydia comparison</div></div>
+        <span class="arrow">›</span>
+      </a>
+      <a href="https://discord.gg/jb" target="_blank" class="guide-card">
+        <span class="gi">💬</span>
+        <div><div class="gt">r/Jailbreak Discord</div><div class="gd">Live community support in English</div></div>
+        <span class="arrow">›</span>
+      </a>
+    </div>
+  </div>
+
+  <div class="tab-content" id="tab-info">
+    <div class="info-grid">
+      <div class="info-card">
+        <h4>What is jailbreaking?</h4>
+        <p>Jailbreaking lets you unlock the full potential of your iOS device — breaking Apple's restrictions to install custom tweaks, themes, and apps from package managers like Sileo.</p>
+      </div>
+      <div class="info-card">
+        <h4>Is it legal?</h4>
+        <p>In the United States, jailbreaking is legal. In 2010, the US Copyright Office declared it an exception to the DMCA. Check your country's laws before proceeding.</p>
+      </div>
+      <div class="info-card">
+        <h4>What are tweaks?</h4>
+        <p>Tweaks are software packages that change how iOS looks and behaves — adding features, theming the UI, or unlocking hidden functionality. Most appear in Settings, not as app icons.</p>
+      </div>
+      <div class="info-card">
+        <h4>What can I do once jailbroken?</h4>
+        <p>Get full OS access, install Sileo or Zebra as a package manager, apply custom themes, install powerful system-level modifications, and run apps not allowed in the App Store.</p>
+      </div>
+    </div>
+    <div class="notice warn"><span class="ni">⚠️</span> Jailbreaking may void your warranty, introduce security risks, and can cause instability or data loss. Always back up your device before proceeding.</div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- COMPAT TABLE -->
+<section id="compat">
+  <div class="section-label">Compatibility</div>
+  <div class="section-title">Find the right tool.</div>
+  <p class="section-desc">A quick reference for which jailbreak supports your iOS version.</p>
+
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>iOS Version</th>
+          <th>Tool</th>
+          <th>Type</th>
+          <th>Chips</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>iOS 18.x</td><td>—</td><td>—</td><td>All</td><td><span class="badge badge-red">Unavailable</span></td></tr>
+        <tr><td>iOS 17.0.1+</td><td>—</td><td>—</td><td>All</td><td><span class="badge badge-red">Unavailable</span></td></tr>
+        <tr><td>iOS 17.0</td><td>TrollStore 2</td><td>CoreTrust</td><td>A12–A17</td><td><span class="badge badge-orange">Partial</span></td></tr>
+        <tr><td>iOS 16.7 RC</td><td>TrollRestore</td><td>CoreTrust</td><td>A9–A11</td><td><span class="badge badge-orange">Partial</span></td></tr>
+        <tr><td>iOS 16.0–16.6.1</td><td>Dopamine</td><td>Rootless</td><td>A8–A16, M1/M2</td><td><span class="badge badge-green">Supported</span></td></tr>
+        <tr><td>iOS 15.0–15.8.6</td><td>Dopamine / Palera1n</td><td>Rootless</td><td>A8–A16</td><td><span class="badge badge-green">Supported</span></td></tr>
+        <tr><td>iOS 14.0–14.8.1</td><td>Unc0ver / TrollStore</td><td>Untethered</td><td>All 64-bit</td><td><span class="badge badge-green">Supported</span></td></tr>
+        <tr><td>iOS 12.0–13.x</td><td>Checkra1n</td><td>Semi-tethered</td><td>A5–A11</td><td><span class="badge badge-green">Supported</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-links">
+    <a href="https://ios.cfw.guide/" target="_blank">iOS CFW Guide</a>
+    <a href="https://ellekit.space/dopamine/" target="_blank">Dopamine</a>
+    <a href="https://ios.cfw.guide/installing-trollstore/" target="_blank">TrollStore Guide</a>
+    <a href="https://ios.cfw.guide/faq/" target="_blank">FAQ</a>
+    <a href="https://discord.gg/jb" target="_blank">Discord</a>
+    <a href="https://github.com/opa334/Dopamine" target="_blank">GitHub</a>
+  </div>
+  <div class="footer-copy">
+    For educational and informational purposes only.<br>
+    All trademarks belong to their respective owners. Always back up your device before modifying it.
+  </div>
+</footer>
+
+<script>
+function switchTab(id) {
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+  document.getElementById('tab-' + id).classList.add('active');
+  event.target.classList.add('active');
+}
+</script>
+
+</body>
+</html>
